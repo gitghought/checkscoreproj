@@ -1,20 +1,5 @@
 package myproj;
 
-/*
- * # 请将下列字符串写入a.txt文件中（7分）
-# Xi,has encouraged officials to step up their study of theory, take the initiative in assuming responsibilities and stay loyal to the Communist Party of China and the people.who is also general secretary of the CPC Central Committee, underscored the importance of training and selecting young officials when addressing the opening ceremony of a study session at the Party School of the Central Committee of CPC attended by young and middle-aged officials on Friday.Without theoretcal thinking, it would be difficult for the CPC to overcome risks and difficulties as the ruling party for a country with almost 1.4 billion people that also is faced with a complicated domestic and international environment, he said.
-# (1)	请将下列字符串写入ucla.txt文件中（7分）
-# (2)	将文档ucla.txt中出现的每个词的数量进行计数统计（7分）
-# (3)	将单词的个数进行降序排列（7分）
-# (4)	将排列好的内容存入新的文件中记录为abstract.txt（6分）
-# (5)	将段落中的单词of改成汉字（包含），将修改后的结果存入client.txt文档。（6分）
-# (6)	将排序后五名的单词单独提取出来，存储到selected.txt文档中
-# (7)	文档的题头即第一行内容为‘特定单词词频出现统计’（6分）
-# (8)	代码规范（3分）
-# (9)	注释完整（3分）
-# 注意关闭文件
- */
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -55,17 +41,33 @@ public class CheckScoreUtil {
 	
 	static {
 		
+		//实现读写配置文件
+		Properties prop = new Properties();
+		File file = new File("./score.properties");
+		
+		try {
+			prop.load(new FileInputStream(file));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String name = prop.getProperty("singleAnswersStr");
+		System.out.println("name = " + name);
+		
 		//单选题
-		String singleAnswersStr = "B,A,B,D,B,B,A,A,B,A,D,D,D,A,B,A,D,D,C,A";
+//		String singleAnswersStr = "B,A,B,D,B,B,A,A,B,A,D,D,D,A,B,A,D,D,C,A";
+		String singleAnswersStr =prop.getProperty("singleAnswersStr");
 		singleAnswers = singleAnswersStr.split(",");
 		
 		//多选题
-		String multiAnswersStr = "AB,ABD,AB,BCD,AB,BD,ABCD,BC,BD,AB";
+		String multiAnswersStr =prop.getProperty("multiAnswersStr");
+//		String multiAnswersStr = "AB,ABD,AB,BCD,AB,BD,ABCD,BC,BD,AB";
 
 		multiAnswers = multiAnswersStr.split(",");
 		
 		//判断题
-		String chooseAnswersStr = "B,B,A,B,B,A,B,B,A,B";
+//		String chooseAnswersStr = "B,B,A,B,B,A,B,B,A,B";
+		String chooseAnswersStr=prop.getProperty("chooseAnswersStr");
 
 		chooseAnswers = chooseAnswersStr.split(",");
 		

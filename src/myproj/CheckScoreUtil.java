@@ -51,28 +51,23 @@ public class CheckScoreUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String name = prop.getProperty("singleAnswersStr");
-		System.out.println("name = " + name);
 		
 		//单选题
-//		String singleAnswersStr = "B,A,B,D,B,B,A,A,B,A,D,D,D,A,B,A,D,D,C,A";
 		String singleAnswersStr =prop.getProperty("singleAnswersStr");
 		singleAnswers = singleAnswersStr.split(",");
 		
 		//多选题
 		String multiAnswersStr =prop.getProperty("multiAnswersStr");
-//		String multiAnswersStr = "AB,ABD,AB,BCD,AB,BD,ABCD,BC,BD,AB";
+		
+		System.out.println(multiAnswersStr);
 
 		multiAnswers = multiAnswersStr.split(",");
 		
 		//判断题
-//		String chooseAnswersStr = "B,B,A,B,B,A,B,B,A,B";
 		String chooseAnswersStr=prop.getProperty("chooseAnswersStr");
 
 		chooseAnswers = chooseAnswersStr.split(",");
-		
 	}
-
 	
 	public static List<String> checkSingle(List<String> studentSingleAnswers) {
 		
@@ -167,8 +162,6 @@ public class CheckScoreUtil {
 		//1.读取答题卡文件列表
 		File dir = new File("D:\\checkscore\\test");
 		File[] stuFiles = dir.listFiles();
-		
-		
 		
 		//2.遍历，逐一判卷
 		for(int i=0; i<stuFiles.length; i++) {

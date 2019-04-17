@@ -16,8 +16,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 public class CheckScoreUtil {
-	
-	
 	private static String[] singleAnswers = null;
 	private static String[] multiAnswers = null;
 	private static String[] chooseAnswers = null;
@@ -38,8 +36,16 @@ public class CheckScoreUtil {
 	private static	int danWrongSize = 0;
 	private static	int duoWrongSize = 0;
 	private static	int panWrongSize = 0;
+
+	//学生答题卡保存位置
+	private static String studentAnswerPath;
 	
+	//学生成绩单保存位置
+	private static String studentScorePath;
+
 	static {
+		studentAnswerPath = "D:\\checkscore\\test";
+		studentScorePath = "D:\\checkscore\\test";
 		
 		//实现读写配置文件
 		Properties prop = new Properties();
@@ -154,13 +160,11 @@ public class CheckScoreUtil {
 		return resultList;
 	}
 	
-	
-	
-	
 	public static void main(String[] args) {
 		
 		//1.读取答题卡文件列表
-		File dir = new File("D:\\checkscore\\test");
+//		File dir = new File("D:\\checkscore\\test");
+		File dir = new File(studentAnswerPath);
 		File[] stuFiles = dir.listFiles();
 		
 		//2.遍历，逐一判卷
@@ -169,7 +173,6 @@ public class CheckScoreUtil {
 			danWrongSize = 0;
 			duoWrongSize = 0;
 			panWrongSize = 0;
-			
 			
 			File stuFile = stuFiles[i];
 			
@@ -206,9 +209,9 @@ public class CheckScoreUtil {
 					+ panWrongSize*QuestionType.CHOOSE.getScore();
 			
 			int total = 100 - totalWrong;
-			resultList.add("==============="+srcFileName+"的总分为"+total+"================================");
+			resultList.add("{\""+srcFileName+"\":"+total+"}");
 
-			File targetFile = new File("D:\\checkscore\\test",srcFileName+".txt");
+			File targetFile = new File(studentScorePath,srcFileName+".txt");
 			String resultStr = String.join(System.getProperty("line.separator"), resultList);
 			
 			System.out.println("resultStr === " + resultStr);

@@ -251,20 +251,32 @@ public class CheckScoreUtil {
 	            for(int i=danRowIndex;i<danRowIndex+danSize;i++) {
 	                HSSFRow row = sheet.getRow(i);
 	                HSSFCell cell = row.getCell(1);
-					System.out.println("cell = " + cell.getStringCellValue());
-					stuSingleList.add(cell.getStringCellValue());	                
+	                System.out.println(cell);
+					if (cell == null) {
+						stuSingleList.add("x");
+					} else {
+						stuSingleList.add(cell.getStringCellValue());	                
+					}
 	            }
 
 	            for(int i=duoRowIndex;i<duoRowIndex+duoSize;i++) {
 	                HSSFRow row = sheet.getRow(i);
 	                HSSFCell cell = row.getCell(1);
-	                stuMultiList.add(cell.getStringCellValue());	                
+	                if (cell == null) {
+						stuMultiList.add("x");
+	                } else {
+						stuMultiList.add(cell.getStringCellValue());	                
+	                }
 	            }
 
 	            for(int i=panRowIndex;i<panRowIndex+panSize;i++) {
 	                HSSFRow row = sheet.getRow(i);
 	                HSSFCell cell = row.getCell(1);
-	                stuChooseList.add(cell.getStringCellValue());	                
+	                if (cell == null) {
+						stuChooseList.add("x");
+	                } else {
+						stuChooseList.add(cell.getStringCellValue());	                
+	                }
 	            }
 	            
 	            map.put(QuestionType.SINGLE, stuSingleList);
